@@ -1,20 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { 
+  StyleSheet,
+  View,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Home from './solana-clone/screens/Home.js'
+import SmartPlace from './solana-clone/components/SmartPlace.js'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <LinearGradient
+          locations={[0, 0.3]}
+          colors={['#fff', '#EFF1F6']} 
+          style={styles.linearGradient}
+        >
+          <SmartPlace />
+          <StatusBar style="auto" />
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  linearGradient: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
 });
