@@ -4,7 +4,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SmartPlacesList from '../components/SmartPlacesList.js'
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View>
       <HomeHeader />
@@ -15,21 +15,24 @@ export default function Home() {
           activityCount={1}
           icon="door-open"
           iconType={FontAwesome5}
-          color={{ background: '#FEF7ED', icon: '#F79929'}}
+          color={{ background: '#FEF7ED', icon: '#F79929' }}
+          navigation={navigation}
         />
         <SmartPlacesList 
           place="Living Room" 
           activityCount={0}
           icon="event-seat"
           iconType={MaterialIcons}
-          color={{ background: '#F2F3F4', icon: '#636A7D'}}
+          color={{ background: '#F2F3F4', icon: '#636A7D' }}
+          navigation={navigation}
         />
         <SmartPlacesList 
           place="Living Room" 
           activityCount={3}
           icon="kitchen"
           iconType={MaterialIcons}
-          color={{ background: '#EAF7FB', icon: '#13ABD5'}}
+          color={{ background: '#EAF7FB', icon: '#13ABD5' }}
+          navigation={navigation}
         />
       </View>
     </View>

@@ -10,11 +10,21 @@ import Octicons from '@expo/vector-icons/Octicons';
 import { globalStyles } from '../shared/globalStyles.js';
 import BrightnessSlider from '../shared/BrightnessSlider';
 import SmartPlacesList from './SmartPlacesList';
-import { useState } from 'react'
+import SmartItem from './SmartItem';
+import { useState, useEffect } from 'react'
+import { smartData } from './data'
 
 export default function SmartPlace() {
   const tabs = ['Lights', 'Scenes', 'Color', 'Temp']
   const [tab, setTab] = useState(tabs[0])
+  const [lights, setLights] = useState(smartData['entryWay'].smartItems.lights)
+
+  const [activity, setActivity] = useState(true)
+
+  useEffect(() => {
+    const allStatus = Array.from(lights.map(item => item.activityState))
+    setActivity(allStatus.every((entry) => !entry) ? false : true)
+  }, [lights])
 
   return (
     <View>
@@ -43,7 +53,7 @@ export default function SmartPlace() {
           </View>
         </View>
         <View style={{marginVertical: 40}}>
-          <BrightnessSlider state={true}/>
+          <BrightnessSlider state={activity}/>
         </View>
         <View style={styles.tabWrap}>
           {tabs.map((item, index) => (
@@ -64,34 +74,17 @@ export default function SmartPlace() {
           ))}
         </View>
       </View>
-      <View style={{marginTop: 15}}>
-          <SmartPlacesList 
-            place="Dining Table" 
-            icon="light-bulb"
-            iconType={Octicons}
-            color={{ background: '#FEF7ED', icon: '#F79929'}}
-            brightness={0.8}
-            activityCount={1}
-            activityNotVisible
+      <View style={{ marginTop: 15 }}>
+        {lights.map((item) => (
+          <SmartItem 
+            key={item.place}
+            place={item.place}
+            icon={item.icon}
+            color={item.color}
+            brightness={item.brightness}
+            activityState={item.activityState}
           />
-          <SmartPlacesList 
-            place="Sofa Light" 
-            icon="light-bulb"
-            iconType={Octicons}
-            color={{ background: '#EAF7FB', icon: '#33B6DB'}}
-            brightness={0.4}
-            activityCount={1}
-            activityNotVisible
-          />
-          <SmartPlacesList 
-            place="Lamp" 
-            icon="light-bulb"
-            iconType={Octicons}
-            color={{ background: '#EAF7FB', icon: '#13ABD5'}}
-            brightness={0.6}
-            activityCount={0}
-            activityNotVisible
-          />
+        ))}
       </View>
     </View>
   )

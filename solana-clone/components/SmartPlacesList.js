@@ -12,6 +12,7 @@ export default function SmartPlacesList({
   color,
   brightness,
   activityNotVisible,
+  navigation
 }) {
   
   const [switchValue, setSwitchValue] = useState(false)
@@ -34,8 +35,16 @@ export default function SmartPlacesList({
         : `${activity} lights on`
       : 'All lights off'
   }
+
+  const handlePress = () => {
+    navigation ? navigation.navigate('SmartPlace') : null
+  }
+
   return (
-    <TouchableOpacity style={styles.smartWrap}>
+    <TouchableOpacity
+      style={styles.smartWrap}
+      onPress={() => handlePress()}
+    >
       <View style={styles.smartItem}>
         <View style={[
           styles.smartItemIcon,
